@@ -61,7 +61,9 @@ if(!isset($_SESSION["user"]))
 					 <li>
                         <a class="active-menu" href="profit.php"><i class="fa fa-qrcode"></i> Profit</a>
                     </li>
-                    
+                    <li>
+                        <a href="food_menu.php"><i class="fa fa-qrcode"></i>Food Menu</a>
+                    </li>
                     <li>
                         <a href="logout.php" ><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>

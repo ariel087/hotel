@@ -60,9 +60,11 @@ if (!isset($_SESSION["user"])) {
                         <a href="payment.php"><i class="fa fa-qrcode"></i> Payment</a>
                     </li>
                     <li>
-                        <a class="active-menu" href="profit.php"><i class="fa fa-qrcode"></i> Profit</a>
+                        <a href="profit.php"><i class="fa fa-qrcode"></i> Profit</a>
                     </li>
-
+                    <li>
+                        <a class="active-menu"  href="food_menu.php"><i class="fa fa-qrcode"></i>Food Menu</a>
+                    </li>
                     <li>
                         <a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
@@ -117,7 +119,6 @@ if (isset($_POST['food'])) {
         }
 
     } else {
-        echo "All fields are required.";
     }
 }
 if (isset($_POST['delFood'])) {
@@ -144,7 +145,6 @@ if (isset($_POST['delFood'])) {
         }
 
     } else {
-        echo "All fields are required.";
     }
 
                     ?>

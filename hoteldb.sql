@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2024 at 08:54 AM
+-- Generation Time: Dec 03, 2024 at 05:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `food_menu`
+--
+
+CREATE TABLE `food_menu` (
+  `food_id` int(11) NOT NULL,
+  `food_name` varchar(255) NOT NULL,
+  `food_description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `food_menu`
+--
+
+INSERT INTO `food_menu` (`food_id`, `food_name`, `food_description`) VALUES
+(1, 'sample', 'sample description'),
+(5, 'adobo', 'adobo sa gata');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `login`
 --
 
@@ -31,7 +51,7 @@ CREATE TABLE `login` (
   `id` int(10) UNSIGNED NOT NULL,
   `usname` varchar(30) DEFAULT NULL,
   `pass` varchar(30) DEFAULT NULL,
-  `profile_pic` varchar(255) DEFAULT 'default.jpg'
+  `profile_pic` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -39,7 +59,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `usname`, `pass`, `profile_pic`) VALUES
-(1, 'Admin', '1234', '../images/avatar/639a5016e92c33.04890837.png');
+(1, 'admin', '1234', '../images/avatar/g9.jpg');
 
 -- --------------------------------------------------------
 
@@ -80,6 +100,13 @@ CREATE TABLE `tbladmin` (
   `AdminRegdate` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbladmin`
+--
+
+INSERT INTO `tbladmin` (`ID`, `AdminName`, `UserName`, `MobileNumber`, `Email`, `Password`, `AdminRegdate`) VALUES
+(2024001, 'Ariel', 'ariel', 9451570794, 'ariellabuson08@gmail.com', '12345678', '2024-11-25 05:26:54');
+
 -- --------------------------------------------------------
 
 --
@@ -96,12 +123,27 @@ CREATE TABLE `tblbooking` (
   `Address` mediumtext DEFAULT NULL,
   `CheckinDate` varchar(200) DEFAULT NULL,
   `CheckoutDate` varchar(200) DEFAULT NULL,
-  `BookingDate` timestamp NULL DEFAULT current_timestamp(),
+  `BookingDate` date DEFAULT current_timestamp(),
   `Remark` varchar(50) DEFAULT NULL,
   `Status` varchar(50) DEFAULT 'Pending',
   `downPay` int(255) NOT NULL,
-  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `extendDate` date DEFAULT NULL,
+  `pool` int(60) NOT NULL,
+  `food` int(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblbooking`
+--
+
+INSERT INTO `tblbooking` (`ID`, `RoomId`, `BookingNumber`, `UserID`, `IDType`, `Gender`, `Address`, `CheckinDate`, `CheckoutDate`, `BookingDate`, `Remark`, `Status`, `downPay`, `UpdationDate`, `extendDate`, `pool`, `food`) VALUES
+(67, 50, '141503292', 43, 'Voter Card', 'Female', 'dasads', '32123-12-31', '3223-12-21', '2024-11-26', NULL, 'Pending', 2500, NULL, NULL, 0, 0),
+(69, 38, '585086850', 2024452516, 'Voter Card', 'Male', '625 Tramo Santo Cristo', '2024-11-26', '2024-11-29', '2024-11-26', NULL, 'Approved', 2500, '2024-12-02 19:55:19', '2024-12-25', 2500, 2500),
+(70, 42, '668107264', 2024747705, 'Voter Card', 'Male', '625 Tramo Santo Cristo', '2024-11-26', '2024-11-25', '2024-11-26', NULL, 'Approved', 2500, '2024-12-02 10:58:10', '2024-12-05', 0, 0),
+(71, 51, '429949207', 43, 'Voter Card', 'Male', '625 Tramo Santo Cristo', '2024-12-03', '2024-12-27', '2024-12-03', NULL, 'Approved', 2500, '2024-12-03 04:23:58', '2024-12-31', 2500, 2500),
+(72, 51, '404733322', 43, 'Driving Licence Card', 'Female', '625 Tramo Santo Cristo', '2024-12-30', '2025-01-04', '2024-12-03', NULL, 'Approved', 2500, '2024-12-02 20:13:19', NULL, 2500, 2500),
+(73, 31, '162876368', 43, 'Voter Card', 'Male', '625 Tramo Santo Cristo', '2024-12-03', '2024-12-15', '2024-12-03', NULL, 'Pending', 2500, NULL, NULL, 0, 2500);
 
 -- --------------------------------------------------------
 
@@ -175,6 +217,28 @@ CREATE TABLE `tblpage` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblreservation`
+--
+
+CREATE TABLE `tblreservation` (
+  `ID` int(10) NOT NULL,
+  `FullName` varchar(200) DEFAULT NULL,
+  `MobileNumber` bigint(10) DEFAULT NULL,
+  `Email` varchar(120) DEFAULT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblreservation`
+--
+
+INSERT INTO `tblreservation` (`ID`, `FullName`, `MobileNumber`, `Email`, `status`) VALUES
+(2024452516, 'Ariel Labuson', 9451570794, 'ariellabuson08@gmail.com', 'Pending'),
+(2024747705, 'Ariel Labuson', 9451570794, 'ariellabuson41@gmail.com', 'Pending');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblroom`
 --
 
@@ -213,7 +277,8 @@ INSERT INTO `tblroom` (`ID`, `RoomType`, `RoomName`, `MaxAdult`, `MaxChild`, `Ro
 (42, 14, 'Standard Twin Room', 2, 1, 'A budget-friendly option for travelers, the standard twin room features two beds and essential amenities. Ideal for friends or family members.', 2, 'image15.jpg', 'Available', '2022-12-16 03:30:00'),
 (43, 14, 'Economy Room', 1, 0, 'Our economy room provides basic accommodation at an affordable price. Suitable for budget-conscious travelers looking for a simple and comfortable stay.', 1, 'image16.jpg', 'Available', '2022-12-16 03:45:00'),
 (44, 14, 'Cozy Retreat', 2, 1, 'Escape to a cozy retreat with comfortable furnishings and a warm ambiance. Perfect for a relaxing getaway without breaking the bank.', 1, 'image17.jpg', 'Available', '2022-12-16 04:00:00'),
-(45, 14, 'Standard Family Room', 4, 2, 'A family-friendly choice, our standard family room offers space and comfort for a pleasant stay. Suitable for families with children.', 2, 'image18.jpg', 'Available', '2022-12-16 04:15:00');
+(45, 14, 'Standard Family Room', 4, 2, 'A family-friendly choice, our standard family room offers space and comfort for a pleasant stay. Suitable for families with children.', 2, 'image18.jpg', 'Available', '2022-12-16 04:15:00'),
+(51, 12, 'sample', NULL, NULL, 'sample', 1, '1.jpg', 'Avail', '2024-11-30 12:08:20');
 
 -- --------------------------------------------------------
 
@@ -235,8 +300,21 @@ CREATE TABLE `tbluser` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `tbluser`
+--
+
+INSERT INTO `tbluser` (`ID`, `FullName`, `MobileNumber`, `Email`, `avatar`, `Password`, `status`, `privilege`, `code`, `RegDate`) VALUES
+(43, 'Ariel gallardo Labuson', 9123456789, 'ariellabuson08@gmail.com', NULL, '25d55ad283aa400af464c76d713c07ad', 1, 'Unblocked', '697583', '2024-11-25 05:15:55');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `food_menu`
+--
+ALTER TABLE `food_menu`
+  ADD PRIMARY KEY (`food_id`);
 
 --
 -- Indexes for table `login`
@@ -306,10 +384,16 @@ ALTER TABLE `tbluser`
 --
 
 --
+-- AUTO_INCREMENT for table `food_menu`
+--
+ALTER TABLE `food_menu`
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `maintenance`
@@ -321,13 +405,13 @@ ALTER TABLE `maintenance`
 -- AUTO_INCREMENT for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2024002;
 
 --
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
@@ -357,13 +441,13 @@ ALTER TABLE `tblpage`
 -- AUTO_INCREMENT for table `tblroom`
 --
 ALTER TABLE `tblroom`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

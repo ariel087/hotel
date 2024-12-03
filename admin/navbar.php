@@ -35,6 +35,7 @@ $fetchimg = mysqli_fetch_array($queryimg);
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="usersetting.php"><i class="fa fa-user fa-fw"></i> Admin Profile</a>
                         </li>
+                        
                         <li><a href="settings.php"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
